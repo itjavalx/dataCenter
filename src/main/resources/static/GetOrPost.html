@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+<body>
+<input type="button" title="GET" value="模拟GET请求" onclick="getRequest()"/>
+<input type="button" title="POST" value="模拟POST请求" onclick="postRequest()"/>
+</body>
+<script>
+    function getRequest() {
+        $.ajax({
+            url: '/request/getR?type=update',
+            type: 'GET',
+            date: {
+                "type": "update"
+            },
+            success: function (req) {
+                console.log(req);
+                alert(req);
+            }
+        })
+    }
+
+    function postRequest() {
+        var t = "update";
+        $.ajax({
+            url: '/request/postR/' + t + '/user',//地址
+            contentType: "application/json",
+            type: 'POST',//类型
+            async:false,
+            dataType: 'json',//数据类型
+            date: JSON.stringify({
+                    "username": "小明",
+                    "age": 23,
+                    "sex": "男",
+                    "childs": [{
+                        "username": "红红",
+                        "age": 1,
+                        "sex": "女"
+                    }]
+            }),
+
+            //请求成功
+            success: function (req) {
+                console.log(this.date);
+                console.log(req);
+                alert(req);
+            }
+        })
+    }
+</script>
+</html>
